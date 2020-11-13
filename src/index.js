@@ -1,33 +1,30 @@
-import './main.scss'
+import "./main.scss";
 import * as THREE from "three";
+import { initLathe } from "./modle";
 
 let camera, scene, renderer;
-let cube;
-
-
+let model = initLathe();
 
 // 初始化相机
 function initCamera() {
-  const fov=75
-  const aspect=window.innerWidth / window.innerHeight
-  const near=0.1
-  const far=100
-  camera = new THREE.PerspectiveCamera(
-    fov,aspect,near,far
-  );
-  camera.position.z = 3;
+  const fov = 75;
+  const aspect = window.innerWidth / window.innerHeight;
+  const near = 0.1;
+  const far = 100;
+  camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+  camera.position.z = 20;
 }
 // 初始化场景
 function initScene() {
   scene = new THREE.Scene();
 }
 // 初始化灯光
-function initLight(){
-  const color = 0xFFFFFF;
-    const intensity = 1;
-    const light = new THREE.DirectionalLight(color, intensity);
-    light.position.set(-1, 2, 4);
-    scene.add(light);
+function initLight() {
+  const color = 0xffffff;
+  const intensity = 1;
+  const light = new THREE.DirectionalLight(color, intensity);
+  light.position.set(-1, 2, 4);
+  scene.add(light);
 }
 // 初始化渲染器
 function initRender() {
@@ -38,14 +35,12 @@ function initRender() {
 }
 // 初始化模型
 function initModle() {
-  const boxWidth = 1;
-  const boxHeight = 1;
-  const boxDepth = 1;
-  const color="#1cc"
-  const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
-  const material = new THREE.MeshPhongMaterial({color});
-  cube = new THREE.Mesh(geometry, material);
-  scene.add(cube);
+  scene.add(model);
+}
+// 初始化辅助线
+function initHelper() {
+  const axesHelper = new THREE.AxesHelper(20);
+  scene.add(axesHelper);
 }
 // 屏幕适配方案
 function resizeRendererToDisplaySize(renderer) {
@@ -63,22 +58,19 @@ function main() {
   initCamera();
   initScene();
   initModle();
-  initLight()
+  initLight();
   initRender();
-  render()
+  initHelper();
+  render();
 }
 // 动画
 function render() {
   if (resizeRendererToDisplaySize(renderer)) {
-    const canvas = renderer.domElement;
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
   }
- 
-
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.02;
-
+  // model.rotation.x += 0.005;
+  model.rotation.y += 0.01;
   renderer.render(scene, camera);
   requestAnimationFrame(render);
 }
