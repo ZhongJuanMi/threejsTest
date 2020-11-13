@@ -86,6 +86,26 @@ export function initCylinder() {
   const material = new THREE.MeshBasicMaterial({ color, wireframe });
   return new Mesh(geometry, material);
 }
+// 四面体
+export function initTetrahedron() {
+  const radius = 7;
+  const detail = 1;
+  const color = "#1cc";
+  const wireframe = true;
+  const geometry = new THREE.TetrahedronBufferGeometry(radius, detail);
+  const material = new THREE.MeshPhongMaterial({ color, wireframe });
+  return new Mesh(geometry, material);
+}
+// 八面体
+export function initOctahedron() {
+  const radius = 7;
+  const detail = 0;
+  const color = "#1cc";
+  const wireframe = false;
+  const geometry = new THREE.OctahedronBufferGeometry(radius, detail);
+  const material = new THREE.MeshPhongMaterial({ color, wireframe });
+  return new Mesh(geometry, material);
+}
 // 十二面体
 export function initDodecahedron() {
   const radius = 2;
@@ -94,6 +114,95 @@ export function initDodecahedron() {
   const wireframe = false;
   const geometry = new THREE.DodecahedronBufferGeometry(radius, detail);
   const material = new THREE.MeshLambertMaterial({ color, wireframe });
+  return new Mesh(geometry, material);
+}
+// 二十面体
+export function initIcosahedron() {
+  const radius = 7;
+  const detail = 0;
+  const color = "#e66";
+  const wireframe = false;
+  const geometry = new THREE.IcosahedronBufferGeometry(radius, detail);
+  const material = new THREE.MeshPhongMaterial({ color, wireframe });
+  return new Mesh(geometry, material);
+}
+// 多面体
+export function initPolyhedron() {
+  const verticesOfCube = [
+    -1,
+    -1,
+    -1,
+    1,
+    -1,
+    -1,
+    1,
+    1,
+    -1,
+    -1,
+    1,
+    -1,
+    -1,
+    -1,
+    1,
+    1,
+    -1,
+    1,
+    1,
+    1,
+    1,
+    -1,
+    1,
+    1,
+  ];
+  const indicesOfFaces = [
+    2,
+    1,
+    0,
+    0,
+    3,
+    2,
+    0,
+    4,
+    7,
+    7,
+    3,
+    0,
+    0,
+    1,
+    5,
+    5,
+    4,
+    0,
+    1,
+    2,
+    6,
+    6,
+    5,
+    1,
+    2,
+    3,
+    7,
+    7,
+    6,
+    2,
+    4,
+    5,
+    6,
+    6,
+    7,
+    4,
+  ];
+  const radius = 7;
+  const detail = 2;
+  const color = "#e66";
+  const wireframe = false;
+  const geometry = new THREE.PolyhedronBufferGeometry(
+    verticesOfCube,
+    indicesOfFaces,
+    radius,
+    detail
+  );
+  const material = new THREE.MeshPhongMaterial({ color, wireframe });
   return new Mesh(geometry, material);
 }
 // 拉伸体
@@ -121,16 +230,6 @@ export function initExtrude() {
   const wireframe = false;
   const geometry = new THREE.ExtrudeBufferGeometry(shape, extrudeSettings);
   const material = new THREE.MeshLambertMaterial({ color, wireframe });
-  return new Mesh(geometry, material);
-}
-// 二十面体
-export function initIcosahedron() {
-  const radius = 7;
-  const detail = 0;
-  const color = "#e66";
-  const wireframe = false;
-  const geometry = new THREE.IcosahedronBufferGeometry(radius, detail);
-  const material = new THREE.MeshPhongMaterial({ color, wireframe });
   return new Mesh(geometry, material);
 }
 // 扫描体

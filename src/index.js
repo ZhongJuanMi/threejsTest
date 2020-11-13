@@ -1,9 +1,9 @@
 import "./main.scss";
 import * as THREE from "three";
-import { initLathe } from "./modle";
+import { initPolyhedron } from "./modle";
 
 let camera, scene, renderer;
-let model = initLathe();
+let model = initPolyhedron();
 
 // 初始化相机
 function initCamera() {
@@ -69,7 +69,7 @@ function render() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
   }
-  // model.rotation.x += 0.005;
+  model.rotation.x += 0.005;
   model.rotation.y += 0.01;
   renderer.render(scene, camera);
   requestAnimationFrame(render);
