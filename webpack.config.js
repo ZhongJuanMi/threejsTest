@@ -16,7 +16,7 @@ module.exports = {
     // 清理dist文件夹
     new CleanWebpackPlugin(),
     // 生成新的html
-    new HtmlWebpackPlugin({ title: "webpack&threejs" }),
+    new HtmlWebpackPlugin({ title: "threejsTest" }),
   ],
   output: {
     filename: "[name].bundle.js",
@@ -34,8 +34,8 @@ module.exports = {
       },
       // 加载SCSS
       {
-        test:/\.scss$/,
-        use:["style-loader","css-loader","sass-loader"]
+        test: /\.scss$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
       // 加载图片
       {
