@@ -133,6 +133,110 @@ export function initIcosahedron() {
   const material = new THREE.MeshPhongMaterial({ color, wireframe });
   return new Mesh(geometry, material);
 }
+// 多面体
+export function initPolyhedron() {
+  const verticesOfCube = [
+    -1,
+    -1,
+    -1,
+    1,
+    -1,
+    -1,
+    1,
+    1,
+    -1,
+    -1,
+    1,
+    -1,
+    -1,
+    -1,
+    1,
+    1,
+    -1,
+    1,
+    1,
+    1,
+    1,
+    -1,
+    1,
+    1,
+  ];
+  const indicesOfFaces = [
+    2,
+    1,
+    0,
+    0,
+    3,
+    2,
+    0,
+    4,
+    7,
+    7,
+    3,
+    0,
+    0,
+    1,
+    5,
+    5,
+    4,
+    0,
+    1,
+    2,
+    6,
+    6,
+    5,
+    1,
+    2,
+    3,
+    7,
+    7,
+    6,
+    2,
+    4,
+    5,
+    6,
+    6,
+    7,
+    4,
+  ];
+  const radius = 7;
+  const detail = 2;
+  const color = "#e66";
+  const wireframe = false;
+  const geometry = new THREE.PolyhedronBufferGeometry(
+    verticesOfCube,
+    indicesOfFaces,
+    radius,
+    detail
+  );
+  const material = new THREE.MeshPhongMaterial({ color, wireframe });
+  return new Mesh(geometry, material);
+}
+// 球体
+export function initSphere() {
+  const radius = 7;
+  const widthSegments = 12;
+  const heightSegments = 8;
+  // 纬度弧度
+  const phiStart = Math.PI * 0;
+  const phiLength = Math.PI * 2;
+  // 经度弧度
+  const thetaStart = Math.PI * 0.2;
+  const thetaLength = Math.PI * 0.6;
+  const color = "#e66";
+  const wireframe = true;
+  const geometry = new THREE.SphereBufferGeometry(
+    radius,
+    widthSegments,
+    heightSegments,
+    phiStart,
+    phiLength,
+    thetaStart,
+    thetaLength
+  );
+  const material = new THREE.MeshPhongMaterial({ color, wireframe });
+  return new Mesh(geometry, material);
+}
 // 扫描体
 export function initLathe() {
   let points = [];
@@ -152,4 +256,46 @@ export function initLathe() {
   );
   const material = new THREE.MeshPhongMaterial({ color, wireframe });
   return new Mesh(geometry, material);
+}
+// 参数模型
+export function initParametric() {
+  // function klein(v, u, target) {
+  //   u *= Math.PI;
+  //   v *= 2 * Math.PI;
+  //   u = u * 2;
+  //   let x;
+  //   let z;
+  //   if (u < Math.PI) {
+  //     x =
+  //       3 * Math.cos(u) * (1 + Math.sin(u)) +
+  //       2 * (1 - Math.cos(u) / 2) * Math.cos(u) * Math.cos(v);
+  //     z =
+  //       -8 * Math.sin(u) -
+  //       2 * (1 - Math.cos(u) / 2) * Math.sin(u) * Math.cos(v);
+  //   } else {
+  //     x =
+  //       3 * Math.cos(u) * (1 + Math.sin(u)) +
+  //       2 * (1 - Math.cos(u) / 2) * Math.cos(v + Math.PI);
+  //     z = -8 * Math.sin(u);
+  //   }
+  //   const y = -2 * (1 - Math.cos(u) / 2) * Math.sin(v);
+  //   target.set(x, y, z).multiplyScalar(0.75);
+  // }
+  //创建波浪图形的方法
+  function radialwave(u, v, target) {
+    let r = 50;
+    let x = Math.sin(u) * r;
+    let z = Math.sin(v / 2) * 2 * r;
+    let y = (Math.sin(u * 4 * Math.PI) + Math.cos(v * 2 * Math.PI)) * 2.8;
+    target.set(x, y, z);
+  }
+  const color = "#e66";
+  const wireframe = false;
+  const geometry = new THREE.ParametricBufferGeometry(radialwave, 150, 150);
+  const material = new THREE.MeshBasicMaterial({
+    color,
+    wireframe,
+    side: THREE.DoubleSide,
+  });
+  return new THREE.Mesh(geometry, material);
 }
