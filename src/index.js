@@ -1,9 +1,10 @@
 import "./main.scss";
 import * as THREE from "three";
-import { initPolyhedron } from "./modle";
+import { initText } from "./modle";
 
 let camera, scene, renderer;
-let model = initPolyhedron();
+let model = initText();
+console.log(model);
 
 // 初始化相机
 function initCamera() {
@@ -35,7 +36,7 @@ function initRender() {
 }
 // 初始化模型
 function initModle() {
-  scene.add(model);
+  // scene.add(model);
 }
 // 初始化辅助线
 function initHelper() {
@@ -69,8 +70,8 @@ function render() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
   }
-  model.rotation.x += 0.005;
-  model.rotation.y += 0.01;
+  // model.rotation.x += 0.005;
+  // model.rotation.y += 0.01;
   renderer.render(scene, camera);
   requestAnimationFrame(render);
 }
