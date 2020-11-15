@@ -1,9 +1,9 @@
 import "./main.scss";
 import * as THREE from "three";
-import { initParametric } from "./modle";
+import { initText } from "./modle";
 
 let camera, scene, renderer;
-let model = initParametric();
+let model;
 
 // 初始化相机
 function initCamera() {
@@ -34,7 +34,8 @@ function initRender() {
   renderer.setClearColor(0xffffff, 1.0);
 }
 // 初始化模型
-function initModle() {
+async function initModle() {
+  model = await initText();
   scene.add(model);
 }
 // 初始化辅助线
@@ -54,10 +55,10 @@ function resizeRendererToDisplaySize(renderer) {
   return needResize;
 }
 // 初始化
-function main() {
+async function main() {
   initCamera();
   initScene();
-  initModle();
+  await initModle();
   initLight();
   initRender();
   initHelper();
@@ -70,7 +71,7 @@ function render() {
     camera.updateProjectionMatrix();
   }
   model.rotation.x += 0.005;
-  // model.rotation.y += 0.01;
+  model.rotation.y += 0.01;
   renderer.render(scene, camera);
   requestAnimationFrame(render);
 }

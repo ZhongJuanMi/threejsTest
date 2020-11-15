@@ -23,7 +23,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: [".json", ".js"],
   },
   module: {
     rules: [
@@ -45,6 +45,10 @@ module.exports = {
       // 加载字体
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: ["file-loader"],
+      },
+      {
+        test: /\.typeface.json$/,
         use: ["file-loader"],
       },
     ],
