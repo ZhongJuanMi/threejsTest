@@ -47,8 +47,10 @@ module.exports = {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
         use: ["file-loader"],
       },
+      // 以文件的形式加载json,若以json形式加载，则无需配置
       {
         test: /\.typeface.json$/,
+        type: "javascript/auto",
         use: ["file-loader"],
       },
     ],
