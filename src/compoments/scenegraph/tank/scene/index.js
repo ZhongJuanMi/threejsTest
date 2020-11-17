@@ -1,11 +1,9 @@
 import { Scene } from "three";
-import { initLight } from "./lights";
-import { solarSystem } from "./objects";
+import light from "./lights";
+import { solarSystem, groundMesh } from "./objects";
 // 初始化场景
-export function initScene() {
-  const scene = new Scene();
-  const light = initLight();
-  scene.add(light);
-  scene.add(solarSystem);
-  return scene;
-}
+const scene = new Scene();
+scene.add(light);
+scene.add(solarSystem);
+scene.add(groundMesh);
+export default scene;

@@ -1,8 +1,7 @@
-import { PointLight } from "three";
+import { SpotLight } from "three";
 // 初始化灯光
-export function initLight() {
-  const color = 0xffffff;
-  const intensity = 3;
-  const light = new PointLight(color, intensity);
-  return light;
-}
+const color = 0xffffff;
+const intensity = 3;
+const light = new SpotLight(color, intensity);
+light.position.set(0, 350, 150);
+export default light;

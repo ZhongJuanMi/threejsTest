@@ -1,5 +1,18 @@
-import { SphereBufferGeometry, MeshPhongMaterial, Mesh, Object3D } from "three";
+import {
+  PlaneBufferGeometry,
+  SphereBufferGeometry,
+  MeshPhongMaterial,
+  Mesh,
+  Object3D,
+} from "three";
 import { makeAxisGrid } from "./gui";
+// 地面
+const groundGeometry = new PlaneBufferGeometry(50, 50);
+const groundMaterial = new MeshPhongMaterial({ color: 0xcc8866 });
+const groundMesh = new Mesh(groundGeometry, groundMaterial);
+groundMesh.rotation.x = Math.PI * -0.5;
+groundMesh.receiveShadow = true;
+
 // 创建球体网格
 function createSphere(materialOptions, meshName, scaleOptions) {
   const radius = 1;
@@ -53,4 +66,4 @@ makeAxisGrid(earthOrbit, "earthOrbit");
 makeAxisGrid(earthMesh, "earthMesh");
 // makeAxisGrid(moonOrbit, "moonOrbit");
 makeAxisGrid(moonMesh, "moonMesh");
-export { solarSystem, earthOrbit, moonMesh, sunMesh };
+export { solarSystem, earthOrbit, moonMesh, sunMesh, groundMesh };
