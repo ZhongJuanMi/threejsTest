@@ -2,10 +2,16 @@ import {
   PlaneBufferGeometry,
   BoxBufferGeometry,
   CylinderBufferGeometry,
+  SphereBufferGeometry,
+  BufferGeometry,
+  LineBasicMaterial,
   MeshPhongMaterial,
   MeshLambertMaterial,
   Mesh,
   Object3D,
+  Vector2,
+  Line,
+  SplineCurve,
 } from "three";
 
 // 地面
@@ -54,5 +60,59 @@ const wheelMeshes = wheelPositions.map((position) => {
   bodyMesh.add(mesh);
   return mesh;
 });
+// 炮塔
+const domeRadius = carWidth / 2;
+const domeWidthSubdivisions = 12;
+const domeHeightSubdivisions = 12;
+const domePhiStart = 0;
+const domePhiEnd = Math.PI * 2;
+const domeThetaStart = 0;
+const domeThetaEnd = Math.PI * 0.5;
+const domeGeometry = new SphereBufferGeometry(
+  domeRadius,
+  domeWidthSubdivisions,
+  domeHeightSubdivisions,
+  domePhiStart,
+  domePhiEnd,
+  domeThetaStart,
+  domeThetaEnd
+);
+const domeMesh = new Mesh(domeGeometry, bodyMaterial);
+domeMesh.castShadow = true;
+bodyMesh.add(domeMesh);
+domeMesh.position.y = carHeight / 2;
+// 炮
+const turretWidth = 0.5;
+const turretHeight = 0.5;
+const turretLength = carLength / 2 + 1;
+const turretGeometry = new BoxBufferGeometry(
+  turretWidth,
+  turretHeight,
+  turretLength
+);
+const turretMesh = new Mesh(turretGeometry, bodyMaterial);
+turretMesh.castShadow = true;
+turretMesh.position.set(0, carHeight / 2 + 1, turretLength / 2);
+bodyMesh.add(turretMesh);
+// 运动路线
+const curve = new SplineCurve([
+  new Vector2(-10, 0),
+  new Vector2(-5, 5),
+  new Vector2(0, 0),
+  new Vector2(5, -5),
+  new Vector2(10, 0),
+  new Vector2(5, 10),
+  new Vector2(-5, 10),
+  new Vector2(-10, -10),
+  new Vector2(-15, -8),
+  new Vector2(-10, 0),
+]);
 
-export { groundMesh, tank };
+const points = curve.getPoints(100);
+const geometry = new BufferGeometry().setFromPoints(points);
+const material = new LineBasicMaterial({ color: 0xff0000 });
+const splineObject = new Line(geometry, material);
+splineObject.rotation.x = Math.PI * 0.5;
+splineObject.position.y = 0.05;
+
+export { groundMesh, tank, wheelMeshes, splineObject, curve };
