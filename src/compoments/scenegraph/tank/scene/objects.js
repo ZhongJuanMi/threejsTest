@@ -1,69 +1,58 @@
 import {
   PlaneBufferGeometry,
-  SphereBufferGeometry,
+  BoxBufferGeometry,
+  CylinderBufferGeometry,
   MeshPhongMaterial,
+  MeshLambertMaterial,
   Mesh,
   Object3D,
 } from "three";
-import { makeAxisGrid } from "./gui";
+
 // 地面
 const groundGeometry = new PlaneBufferGeometry(50, 50);
-const groundMaterial = new MeshPhongMaterial({ color: 0xcc8866 });
+const groundMaterial = new MeshLambertMaterial({ color: "#998888" });
 const groundMesh = new Mesh(groundGeometry, groundMaterial);
 groundMesh.rotation.x = Math.PI * -0.5;
 groundMesh.receiveShadow = true;
 
-// 创建球体网格
-function createSphere(materialOptions, meshName, scaleOptions) {
-  const radius = 1;
-  const widthSegments = 6;
-  const heightSegments = 6;
-  const geometry = new SphereBufferGeometry(
-    radius,
-    widthSegments,
-    heightSegments
-  );
-  const material = new MeshPhongMaterial(materialOptions);
-  const mesh = new Mesh(geometry, material);
-  mesh.name = meshName;
-  if (scaleOptions) {
-    mesh.scale.set(scaleOptions.x, scaleOptions.y, scaleOptions.z);
-  }
+// 坦克
+const tank = new Object3D();
+tank.castShadow = true;
+// 机身
+const carWidth = 4;
+const carHeight = 1;
+const carLength = 8;
+const bodyGeometry = new BoxBufferGeometry(carWidth, carHeight, carLength);
+const bodyMaterial = new MeshPhongMaterial({ color: 0x6688aa });
+const bodyMesh = new Mesh(bodyGeometry, bodyMaterial);
+bodyMesh.position.y = 1.4;
+tank.add(bodyMesh);
+// 轮子
+const wheelRadius = 1;
+const wheelThickness = 0.5;
+const wheelSegments = 6;
+const wheelGeometry = new CylinderBufferGeometry(
+  wheelRadius, // top radius
+  wheelRadius, // bottom radius
+  wheelThickness, // height of cylinder
+  wheelSegments
+);
+const wheelMaterial = new MeshPhongMaterial({ color: 0x888888 });
+const wheelPositions = [
+  [-carWidth / 2 - wheelThickness / 2, -carHeight / 2, carLength / 3],
+  [carWidth / 2 + wheelThickness / 2, -carHeight / 2, carLength / 3],
+  [-carWidth / 2 - wheelThickness / 2, -carHeight / 2, 0],
+  [carWidth / 2 + wheelThickness / 2, -carHeight / 2, 0],
+  [-carWidth / 2 - wheelThickness / 2, -carHeight / 2, -carLength / 3],
+  [carWidth / 2 + wheelThickness / 2, -carHeight / 2, -carLength / 3],
+];
+const wheelMeshes = wheelPositions.map((position) => {
+  const mesh = new Mesh(wheelGeometry, wheelMaterial);
+  mesh.position.set(...position);
+  mesh.rotation.z = Math.PI * 0.5;
+  // mesh.castShadow = true;
+  bodyMesh.add(mesh);
   return mesh;
-}
-// 太阳
-const sunMesh = createSphere({ emissive: 0xffff00 }, "sunMesh", {
-  x: 5,
-  y: 5,
-  z: 5,
-});
-// 地球
-const earthMesh = createSphere({ color: 0x2233ff }, "earthMesh");
-// 月球
-const moonMesh = createSphere({ color: 0x888888 }, "moonMesh", {
-  x: 0.5,
-  y: 0.5,
-  z: 0.5,
 });
 
-// 太阳系统 包含太阳和地球系统
-const solarSystem = new Object3D({ name: "solarSystem" });
-// 地球系统 包含地球和月球
-const earthOrbit = new Object3D();
-earthOrbit.position.x = 10;
-moonMesh.position.x = 2;
-
-solarSystem.add(sunMesh);
-solarSystem.add(earthOrbit);
-
-solarSystem.add(earthMesh);
-earthOrbit.add(earthMesh);
-earthOrbit.add(moonMesh);
-
-makeAxisGrid(solarSystem, "solarSystem", 26);
-makeAxisGrid(sunMesh, "sunMesh");
-makeAxisGrid(earthOrbit, "earthOrbit");
-makeAxisGrid(earthMesh, "earthMesh");
-// makeAxisGrid(moonOrbit, "moonOrbit");
-makeAxisGrid(moonMesh, "moonMesh");
-export { solarSystem, earthOrbit, moonMesh, sunMesh, groundMesh };
+export { groundMesh, tank };

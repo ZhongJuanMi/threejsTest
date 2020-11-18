@@ -1,7 +1,8 @@
-import { SpotLight } from "three";
+import { DirectionalLight } from "three";
 // 初始化灯光
-const color = 0xffffff;
-const intensity = 3;
-const light = new SpotLight(color, intensity);
-light.position.set(0, 350, 150);
+const color = "#ffffff";
+const intensity = 1;
+const light = new DirectionalLight(color, intensity);
+light.castShadow = true;
+// light.position.set(0, 350, 150);
 export default light;
