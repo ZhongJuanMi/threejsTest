@@ -17,7 +17,7 @@ const renderer = new WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 renderer.setClearColor(0xaaaaaa);
-renderer.shadowMap = true;
+renderer.shadowMap.enabled = true;
 new OrbitControls(camera, renderer.domElement);
 let tankPosition = new Vector2();
 let nextTankPosition = new Vector2();

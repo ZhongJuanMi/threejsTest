@@ -24,7 +24,6 @@ groundMesh.receiveShadow = true;
 
 // 坦克
 const tank = new Object3D();
-tank.castShadow = true;
 // 机身
 const carWidth = 4;
 const carHeight = 1;
@@ -33,6 +32,7 @@ const bodyGeometry = new BoxBufferGeometry(carWidth, carHeight, carLength);
 const bodyMaterial = new MeshPhongMaterial({ color: 0x6688aa });
 const bodyMesh = new Mesh(bodyGeometry, bodyMaterial);
 bodyMesh.position.y = 1.4;
+bodyMesh.castShadow = true;
 tank.add(bodyMesh);
 // 轮子
 const wheelRadius = 1;
@@ -57,7 +57,7 @@ const wheelMeshes = wheelPositions.map((position) => {
   const mesh = new Mesh(wheelGeometry, wheelMaterial);
   mesh.position.set(...position);
   mesh.rotation.z = Math.PI * 0.5;
-  // mesh.castShadow = true;
+  mesh.castShadow = true;
   bodyMesh.add(mesh);
   return mesh;
 });

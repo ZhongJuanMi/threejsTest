@@ -6,6 +6,5 @@ const near = 0.1;
 const far = 1000;
 const camera = new PerspectiveCamera(fov, aspect, near, far);
 camera.position.set(5, 8, 25);
-camera.lookAt(0, 0, 0);
 const tankCamera = new PerspectiveCamera(fov, aspect, near, far);
 export { camera, tankCamera };
