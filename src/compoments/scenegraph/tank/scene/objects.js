@@ -7,13 +7,14 @@ import {
   LineBasicMaterial,
   MeshPhongMaterial,
   MeshLambertMaterial,
+  MeshNormalMaterial,
   Mesh,
   Object3D,
   Vector2,
   Line,
   SplineCurve,
 } from "three";
-
+import { tankCamera } from "../camera";
 // 地面
 const groundGeometry = new PlaneBufferGeometry(50, 50);
 const groundMaterial = new MeshLambertMaterial({ color: "#998888" });
@@ -92,8 +93,22 @@ const turretGeometry = new BoxBufferGeometry(
 );
 const turretMesh = new Mesh(turretGeometry, bodyMaterial);
 turretMesh.castShadow = true;
-turretMesh.position.set(0, carHeight / 2 + 1, turretLength / 2);
-bodyMesh.add(turretMesh);
+const turretPivot = new Object3D();
+turretPivot.add(turretMesh);
+domeMesh.add(turretPivot);
+tank.add(tankCamera);
+tankCamera.position.y = 5;
+turretPivot.position.y = domeRadius / 2 - 0.5;
+turretMesh.position.z = turretLength / 2;
+// 目标
+const targetGeometry = new SphereBufferGeometry(0.5, 6, 3);
+const targetMaterial = new MeshNormalMaterial();
+const targetMesh = new Mesh(targetGeometry, targetMaterial);
+targetMesh.castShadow = true;
+const targetOrbit = new Object3D();
+targetOrbit.add(targetMesh);
+targetMesh.position.x = 12;
+targetOrbit.position.y = 10;
 // 运动路线
 const curve = new SplineCurve([
   new Vector2(-10, 0),
@@ -115,4 +130,14 @@ const splineObject = new Line(geometry, material);
 splineObject.rotation.x = Math.PI * 0.5;
 splineObject.position.y = 0.05;
 
-export { groundMesh, tank, wheelMeshes, splineObject, curve };
+export {
+  groundMesh,
+  tank,
+  domeMesh,
+  turretPivot,
+  wheelMeshes,
+  splineObject,
+  curve,
+  targetOrbit,
+  targetMesh,
+};
