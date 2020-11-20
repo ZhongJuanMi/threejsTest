@@ -6,7 +6,7 @@ export function initCamera() {
   const near = 0.1;
   const far = 1000;
   const camera = new PerspectiveCamera(fov, aspect, near, far);
-  camera.position.set(0, 20, 0);
+  camera.position.set(-14, 5, 20);
   camera.lookAt(0, 0, 0);
   return camera;
 }

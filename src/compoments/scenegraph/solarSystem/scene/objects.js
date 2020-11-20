@@ -3,8 +3,8 @@ import { makeAxisGrid } from "./gui";
 // 创建球体网格
 function createSphere(materialOptions, meshName, scaleOptions) {
   const radius = 1;
-  const widthSegments = 6;
-  const heightSegments = 6;
+  const widthSegments = 120;
+  const heightSegments = 120;
   const geometry = new SphereBufferGeometry(
     radius,
     widthSegments,
