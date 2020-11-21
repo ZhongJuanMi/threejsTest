@@ -1,4 +1,4 @@
-import { DirectionalLight, AmbientLight, SpotLight } from "three";
+import { DirectionalLight } from "three";
 // 初始化灯光
 const color = "#ffffff";
 const intensity = 1.2;
