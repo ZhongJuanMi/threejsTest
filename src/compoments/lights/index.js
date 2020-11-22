@@ -1,7 +1,17 @@
 import * as THREE from "three";
 import img from "./checker.png";
-import light from "./light";
-import './gui'
+import {
+  ambLight,
+  hemLight,
+  dirLight,
+  dirHelper,
+  pointLight,
+  pointHelper,
+  spotLight,
+  spotHelper,
+  rectLight,
+} from "./light";
+import "./gui";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { resizeRendererToDisplaySize } from "../../utils";
 let camera, scene, renderer;
@@ -20,7 +30,14 @@ function initScene() {
 }
 // 初始化灯光
 function initLight() {
-  scene.add(light);
+  scene.add(ambLight);
+  // scene.add(hemLight);
+  // scene.add(dirLight);
+  // scene.add(dirLight.target);
+  // scene.add(pointLight);
+  // scene.add(spotLight);
+  // scene.add(spotLight.target);
+  scene.add(rectLight);
 }
 // 初始化渲染器
 function initRender() {
@@ -55,7 +72,9 @@ function initModle() {
     cubeSize,
     cubeSize
   );
-  const cubeMaterial = new THREE.MeshPhongMaterial({ color: "#8AC" });
+  const cubeMaterial = new THREE.MeshStandardMaterial({
+    color: "#8AC",
+  });
   const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
   cube.position.set(cubeSize + 1, cubeSize / 2, 0);
   scene.add(cube);
@@ -78,6 +97,9 @@ function initHelper() {
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.target.set(0, 5, 0);
   controls.update();
+  // scene.add(dirHelper);
+  // scene.add(pointHelper);
+  // scene.add(spotHelper);
 }
 
 // 初始化
