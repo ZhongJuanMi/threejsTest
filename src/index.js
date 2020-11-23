@@ -1,2 +1,2 @@
 import "./main.scss";
-import "./compoments/lights";
+import "./compoments/cameras";
