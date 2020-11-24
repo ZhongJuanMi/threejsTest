@@ -17,13 +17,13 @@ const gui = new GUI();
 // gui.add(pCamera, "far", 10, 1000).onChange(updateCamera);
 // makXYZHelper(gui, pCamera.position, -20, 20);
 // 正交相机调试
-function updateCamera() {
-  oCamera.updateProjectionMatrix();
-}
-gui.add(oCamera, "near", 0, 10).onChange(updateCamera);
-gui.add(oCamera, "far", 10, 1000).onChange(updateCamera);
-gui.add(oCamera, "zoom", 0, 1).onChange(updateCamera);
-gui.add(oCamera, "left", -40, 40).onChange(updateCamera);
-gui.add(oCamera, "right", -40, 40).onChange(updateCamera);
-gui.add(oCamera, "top", -40, 40).onChange(updateCamera);
-gui.add(oCamera, "bottom", -40, 40).onChange(updateCamera);
+// function updateCamera() {
+//   oCamera.updateProjectionMatrix();
+// }
+// gui.add(oCamera, "near", 0, 10).onChange(updateCamera);
+// gui.add(oCamera, "far", 10, 1000).onChange(updateCamera);
+// gui.add(oCamera, "zoom", 0, 1).onChange(updateCamera);
+// gui.add(oCamera, "left", -100, 100).onChange(updateCamera);
+// gui.add(oCamera, "right", -100, 100).onChange(updateCamera);
+// gui.add(oCamera, "top", -100, 100).onChange(updateCamera);
+// gui.add(oCamera, "bottom", -100, 100).onChange(updateCamera);
